@@ -12,5 +12,5 @@ custom nvim configs can be copied over too under ``~/.config/nvim/init.lua``
 # Install
 there is also an install script
 ```
-./install.sh
+sudo ./install.sh
 ```
