@@ -1,5 +1,6 @@
 #!/bin/bash
 
-# delete current config
-rm ~/.config/nvim/
-cp nvim ~/.config/
+# remove current config
+rm -rf ~/.config/nvim
+# copy new config
+cp -r nvim ~/.config/nvim
