@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# yank-nvim: Copy local Neovim configuration to the nvim folder
+
+set -e
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+NVIM_CONFIG_DIR="$HOME/.config/nvim"
+NVIM_TARGET_DIR="$SCRIPT_DIR/nvim"
+
+echo "Copying $NVIM_CONFIG_DIR -> $NVIM_TARGET_DIR"
+
+rm -rf "$NVIM_TARGET_DIR"
+cp -r "$NVIM_CONFIG_DIR" "$NVIM_TARGET_DIR"
+
+echo "✓ Done!"
