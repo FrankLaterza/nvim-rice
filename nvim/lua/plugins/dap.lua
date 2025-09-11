@@ -32,49 +32,38 @@ return {
         virt_text_pos = vim.fn.has("nvim-0.10") == 1 and "inline" or "eol",
       })
 
-      -- C++ configuration using cppdbg
-      dap.adapters.cppdbg = {
-        id = 'cppdbg',
-        type = 'executable',
-        command = vim.fn.stdpath("data") .. '/mason/bin/OpenDebugAD7',
+      -- C++ configuration using codelldb
+      dap.adapters.codelldb = {
+        type = 'server',
+        port = "${port}",
+        executable = {
+          command = vim.fn.stdpath("data") .. '/mason/bin/codelldb',
+          args = {"--port", "${port}"},
+        }
       }
 
       dap.configurations.cpp = {
         {
           name = "Launch",
-          type = "cppdbg",
+          type = "codelldb",
           request = "launch",
           program = function()
             return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
           end,
           cwd = '${workspaceFolder}',
-          stopAtEntry = false,
-          setupCommands = {
-            {
-              text = '-enable-pretty-printing',
-              description = 'enable pretty printing',
-              ignoreFailures = false
-            },
-          },
+          stopOnEntry = false,
         },
         {
           name = "Attach to Process",
-          type = "cppdbg",
+          type = "codelldb",
           request = "attach",
           program = function()
             return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
           end,
-          processId = function()
+          pid = function()
             return require('dap.utils').pick_process()
           end,
           cwd = '${workspaceFolder}',
-          setupCommands = {
-            {
-              text = '-enable-pretty-printing',
-              description = 'enable pretty printing',
-              ignoreFailures = false
-            },
-          },
         },
       }
 
