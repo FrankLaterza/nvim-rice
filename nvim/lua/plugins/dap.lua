@@ -32,36 +32,49 @@ return {
         virt_text_pos = vim.fn.has("nvim-0.10") == 1 and "inline" or "eol",
       })
 
-      -- C++ configuration using GDB
-      dap.adapters.gdb = {
-        type = "executable",
-        command = "gdb",
-        args = { "-i", "dap" }
+      -- C++ configuration using cppdbg
+      dap.adapters.cppdbg = {
+        id = 'cppdbg',
+        type = 'executable',
+        command = vim.fn.stdpath("data") .. '/mason/bin/OpenDebugAD7',
       }
 
       dap.configurations.cpp = {
         {
-          name = "Launch (GDB)",
-          type = "gdb",
+          name = "Launch",
+          type = "cppdbg",
           request = "launch",
           program = function()
             return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
           end,
-          cwd = "${workspaceFolder}",
-          stopAtBeginningOfMainSubprogram = false,
+          cwd = '${workspaceFolder}',
+          stopAtEntry = false,
+          setupCommands = {
+            {
+              text = '-enable-pretty-printing',
+              description = 'enable pretty printing',
+              ignoreFailures = false
+            },
+          },
         },
         {
-          name = "Attach (GDB)",
-          type = "gdb",
+          name = "Attach to Process",
+          type = "cppdbg",
           request = "attach",
           program = function()
             return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
           end,
-          pid = function()
-            local name = vim.fn.input('Executable name (filter): ')
-            return require("dap.utils").pick_process({ filter = name })
+          processId = function()
+            return require('dap.utils').pick_process()
           end,
-          cwd = '${workspaceFolder}'
+          cwd = '${workspaceFolder}',
+          setupCommands = {
+            {
+              text = '-enable-pretty-printing',
+              description = 'enable pretty printing',
+              ignoreFailures = false
+            },
+          },
         },
       }
 
