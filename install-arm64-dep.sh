@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # copy lazygit
 sudo cp bin/* /usr/bin/

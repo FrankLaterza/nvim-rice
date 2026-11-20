@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # remove current config
 rm -rf ~/.config/nvim

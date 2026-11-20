@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # yank-nvim: Copy local Neovim configuration to the nvim folder
 
@@ -14,3 +14,4 @@ rm -rf "$NVIM_TARGET_DIR"
 cp -r "$NVIM_CONFIG_DIR" "$NVIM_TARGET_DIR"
 
 echo "✓ Done!"
+
