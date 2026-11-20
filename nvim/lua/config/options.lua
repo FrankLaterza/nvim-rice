@@ -5,7 +5,10 @@ local opt = vim.opt
 opt.tabstop = 4
 opt.shiftwidth = 4
 opt.expandtab = true
-opt.shell = "/usr/bin/zsh"
+vim.g.lazyvim_python_lsp = "basedpyright"
+if vim.fn.executable("/usr/bin/zsh") == 1 then
+  opt.shell = "/usr/bin/zsh"
+end
 
 if vim.env.SSH_TTY then
   opt.clipboard:append("unnamedplus")

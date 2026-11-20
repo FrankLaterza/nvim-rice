@@ -37,7 +37,7 @@ return {
         type = 'server',
         port = "${port}",
         executable = {
-          command = vim.fn.stdpath("data") .. '/mason/bin/codelldb',
+          command = vim.fn.executable("codelldb") == 1 and "codelldb" or vim.fn.stdpath("data") .. '/mason/bin/codelldb',
           args = {"--port", "${port}"},
         }
       }
